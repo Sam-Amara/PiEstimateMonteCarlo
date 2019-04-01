@@ -8,26 +8,27 @@ namespace PiEstimateMonteCarlo
     {
         static void Main(string[] args)
         {
-            int param = 0;
+            var param = 0;
+
             if (args.Length == 0 || !int.TryParse(args[0], out param) || param <= 0)
             {
                 Console.WriteLine("Invalid Paramater, try again!");
             }
             else
             {
-                double PiEstimate = MonteCarloSimulation(param) * 4;
+                var PiEstimate = MonteCarloSimulation(param) * 4.0;
 
-                Console.WriteLine($"Pi Estimate is: {PiEstimate}");
-                Console.WriteLine($"Error is: {Math.Abs(Math.PI - PiEstimate)}");
+                Console.WriteLine($"Pi Estimate: {PiEstimate}");
+                Console.WriteLine($"Error:       {Math.Abs(Math.PI - PiEstimate)}");
             }
             
         }
 
         static double MonteCarloSimulation(int coordsCount)
         {
-            Coord[] coords = new Coord[coordsCount];
-            Random r = new Random();
-            int count = 0;
+            var coords = new Coord[coordsCount];
+            var r = new Random();
+            var count = 0;
 
             double HypotenuseSquared(Coord xy) 
                 => Math.Pow(xy.x, 2) + Math.Pow(xy.y, 2); 
