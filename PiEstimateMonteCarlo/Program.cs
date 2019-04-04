@@ -6,27 +6,32 @@ namespace PiEstimateMonteCarlo
 {
     class Program
     {
+        static Coord[] coords;
+
         static void Main(string[] args)
         {
             var param = 0;
 
-            if (args.Length == 0 || !int.TryParse(args[0], out param) || param <= 0)
+            do
             {
-                Console.WriteLine("Invalid Paramater, try again!");
-            }
-            else
-            {
-                var PiEstimate = MonteCarloSimulation(param) * 4.0;
+                Console.Write("Enter number of coords: ");
+                if (!int.TryParse(Console.ReadLine(), out param) || param <= 0)
+                {
+                    Console.WriteLine("Invalid Parameter!\n");
+                }
+                else
+                {
+                    var PiEstimate = MonteCarloSimulation(param) * 4.0;
 
-                Console.WriteLine($"Pi Estimate: {PiEstimate}");
-                Console.WriteLine($"Error:       {Math.Abs(Math.PI - PiEstimate)}");
-            }
-            
+                    Console.WriteLine($"Pi Estimate: {PiEstimate}");
+                    Console.WriteLine($"Error:       {Math.Abs(Math.PI - PiEstimate)}\n");
+                }
+            } while (param != 0);
         }
 
         static double MonteCarloSimulation(int coordsCount)
         {
-            var coords = new Coord[coordsCount];
+            coords = new Coord[coordsCount];
             var r = new Random();
             var count = 0;
 
@@ -45,8 +50,6 @@ namespace PiEstimateMonteCarlo
 
             return (double)count / coords.Length;
         }
-
-        
     }
 
     struct Coord
